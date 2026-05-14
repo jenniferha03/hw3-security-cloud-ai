@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Homework 3.2 — HTTP API POST /verify, Lambda + Lambda layer, S3 model bucket.
+
+Globals:
+  Function:
+    # Cold start: S3 download + sklearn/joblib; sam local on Apple Silicon (x86_64) can exceed 60s.
+    Timeout: 180
+    MemorySize: 1024
+    Runtime: python3.12
+    Architectures:
+      - x86_64
+
+Resources:
+  ModelBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  SklearnLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: !Sub "${AWS::StackName}-sklearn"
+      Description: numpy, scipy, scikit-learn, joblib (Isolation Forest inference)
+      ContentUri: layers/sklearn/
+      CompatibleRuntimes:
+        - python3.12
+      CompatibleArchitectures:
+        - x86_64
+    Metadata:
+      BuildMethod: python3.12
+      BuildArchitecture: x86_64
+
+  VerifyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda/
+      Handler: app.lambda_handler
+      Layers:
+        - !Ref SklearnLayer
+      Environment:
+        Variables:
+          MODEL_BUCKET: !Ref ModelBucket
+          MODEL_KEY: models/isolation_forest.joblib
+          META_KEY: models/feature_columns.json
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref ModelBucket
+      Events:
+        VerifyApi:
+          Type: HttpApi
+          Properties:
+            Path: /verify
+            Method: POST
+
+Outputs:
+  ModelBucketName:
+    Description: Upload model artifacts here (see README)
+    Value: !Ref ModelBucket
+  HttpApiUrl:
+    Description: Invoke POST {HttpApiUrl}/verify
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"

@@ -1,0 +1,9 @@
+{
+  "feature_columns": [
+    "duration_sec",
+    "peak_amplitude",
+    "repetition_count",
+    "hour_of_day"
+  ],
+  "version": 1
+}

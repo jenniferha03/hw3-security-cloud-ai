@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.aws-sam/
+# Local SAM overrides (bucket name per stack); do not commit
+env.json
+# Stack-specific deploy config (use samconfig.toml.example)
+samconfig.toml
+.pytest_cache/
+.mypy_cache/

@@ -1,0 +1,10 @@
+# Copy to samconfig.toml and run: sam deploy --guided
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "homework-32-verify"
+resolve_s3 = true
+s3_prefix = "homework-32"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true

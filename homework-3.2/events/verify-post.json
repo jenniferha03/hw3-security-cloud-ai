@@ -1,0 +1,13 @@
+{
+  "body": "{\"duration_sec\": 15.5, \"peak_amplitude\": 0.22, \"repetition_count\": 35, \"hour_of_day\": 3}",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "requestContext": {
+    "http": {
+      "method": "POST",
+      "path": "/verify"
+    }
+  },
+  "isBase64Encoded": false
+}

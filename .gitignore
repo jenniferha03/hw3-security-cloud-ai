@@ -1,0 +1,43 @@
+.DS_Store
+**/.DS_Store
+
+HELP.md
+target/
+homework-3.1/target/
+homework-3.2/.aws-sam/
+homework-3.2/**/__pycache__/
+homework-3.2/**/.pytest_cache/
+homework-3.2/.venv/
+homework-3.2/venv/
+*.pyc
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
