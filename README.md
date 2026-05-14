@@ -13,8 +13,6 @@
 | **Homework 3.2** - report source (Markdown)    | `[homework-3.2/docs/HOMEWORK_3_2_SUBMISSION.md](homework-3.2/docs/HOMEWORK_3_2_SUBMISSION.md)` |
 
 
-Edit the report in **Markdown** under `homework-3.2/docs/`; rebuild the PDF when needed and replace `**homework3.2.pdf`** at the repository root if you want GitHub to show the latest export.
-
 ## Layout
 
 ```
