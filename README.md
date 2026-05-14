@@ -1,6 +1,7 @@
-# hw3-security-cloud-ai
+# Security, Cloud & AI — Homework 3
 
-Monorepo for **Homework 3.1** (Spring Security + JWT) and **Homework 3.2** (Isolation Forest + AWS SAM / Lambda / S3).
+Course work in one repo: **secure APIs with Spring** (Homework 3.1) and **serverless ML on AWS** (Homework 3.2).  
+*(Repository folder name on disk / GitHub: `hw3-security-cloud-ai`.)*
 
 ## Where to look
 
