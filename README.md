@@ -2,8 +2,6 @@
 
 **Secure APIs with Spring** (Homework 3.1) and **serverless ML on AWS** (Homework 3.2)
 
-## Where to look
-
 
 | Part                                           | Quick link                                                                                     |
 | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
