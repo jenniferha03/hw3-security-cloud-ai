@@ -6,7 +6,7 @@ Spring Boot application (Homework 1 movie API) extended with **Spring Security**
 
 | Item                                 | Implementation                                                                 |
 | ------------------------------------ | ------------------------------------------------------------------------------ |
-| Spring Security                      | `spring-boot-starter-security`, dual `SecurityFilterChain` (H2 console vs API) |
+| Spring Security                      | `spring-boot-starter-security`, dual `SecurityFilterChain` in **`config.SecurityConfig`** (H2 console vs API) |
 | Users in H2                          | JPA entity `AppUser`, table `users`, BCrypt passwords                          |
 | `UserDetails` / `UserDetailsService` | `AppUserDetails`, `AppUserDetailsService`                                      |
 | JWT filter                           | `JwtAuthenticationFilter` validates Bearer tokens and sets `SecurityContext`   |
@@ -17,6 +17,8 @@ Spring Boot application (Homework 1 movie API) extended with **Spring Security**
 
 - **Java 17+** (project uses Java 17 in `pom.xml`; CI or local may run newer)
 - **Maven** (or use the included `./mvnw` wrapper)
+
+Treat **JWT secrets** and any **production credentials** like passwords: do not commit real secrets to Git or share them publicly.
 
 ## Run the application
 
@@ -100,7 +102,7 @@ Enabled when `spring.h2.console.enabled=true`.
 
 Example query: `SELECT * FROM USERS;`
 
-> **Note:** On Spring Boot **3.4.x**, the H2 console is auto-registered; security uses `PathRequest.toH2Console()` on a dedicated filter chain.
+> **Note:** On Spring Boot **3.4.x**, the H2 console is auto-registered; security uses `PathRequest.toH2Console()` on a dedicated filter chain (see `config.SecurityConfig`).
 
 ## Configuration (`application.properties`)
 
@@ -140,7 +142,8 @@ homework-3.1/
     │   ├── Homework31Application.java
     │   ├── config/
     │   │   ├── DataInitializer.java          # seeds default user
-    │   │   └── RestTemplateConfig.java
+    │   │   ├── RestTemplateConfig.java
+    │   │   └── SecurityConfig.java           # Spring Security filter chains + beans
     │   ├── controller/
     │   │   ├── AuthController.java
     │   │   └── MovieController.java
@@ -154,7 +157,6 @@ homework-3.1/
     │   │   ├── MovieService.java
     │   │   └── impl/MovieServiceImpl.java
     │   ├── security/
-    │   │   ├── SecurityConfig.java
     │   │   ├── JwtService.java
     │   │   └── JwtAuthenticationFilter.java
     │   └── user/

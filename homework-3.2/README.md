@@ -1,6 +1,6 @@
 # Homework 3.2 — Alarm verification (Isolation Forest + AWS)
 
-Python pipeline that trains an **Isolation Forest** on alarm **CSV** data, exports `**model/isolation_forest.joblib`**, and exposes `**POST /verify`** on **AWS** via **Lambda**, **API Gateway (HTTP API)**, and **S3** for model storage. Heavy dependencies run in a **Lambda layer** (numpy, scipy, scikit-learn, joblib) built with **AWS SAM**
+Python pipeline that trains an **Isolation Forest** on alarm **CSV** data, exports **`model/isolation_forest.joblib`**, and exposes **`POST /verify`** on **AWS** via **Lambda**, **API Gateway (HTTP API)**, and **S3** for model storage. Heavy dependencies run in a **Lambda layer** (numpy, scipy, scikit-learn, joblib) built with **AWS SAM**.
 
 ## What is implemented
 
@@ -11,7 +11,7 @@ Python pipeline that trains an **Isolation Forest** on alarm **CSV** data, expor
 | Training       | `train.py` — `sklearn.ensemble.IsolationForest`, writes `model/*.joblib` + `feature_columns.json`    |
 | Inference      | `lambda/app.py` — loads model + metadata from **S3** into `/tmp`, parses JSON body, returns scores   |
 | Infrastructure | `template.yaml` — **S3** bucket, **Lambda layer**, **Lambda** function, **HTTP API** `POST /verify`  |
-| Local parity   | `sam build --use-container`; optional `**sam local start-api`** against real S3 using `**env.json`** |
+| Local parity   | `sam build --use-container`; optional **`sam local start-api`** against real S3 using **`env.json`** |
 
 
 Default stack behaviour: **Python 3.12**, Lambda **x86_64**, example region `us-east-1` (change in deploy config if you use another region)
@@ -27,6 +27,8 @@ Default stack behaviour: **Python 3.12**, Lambda **x86_64**, example region `us-
 | **AWS SAM CLI**    | `sam --version`.                                                                                    |
 | **AWS account**    | Ability to create CloudFormation stacks, Lambda, API Gateway, and S3.                               |
 
+
+**Security:** Never share **AWS access keys**, **passwords**, or **session tokens** with others. Do not commit credentials to Git. Use `env.json` / `samconfig.toml` only locally (see `.gitignore`).
 
 **Paths with spaces:** If the repo path contains spaces or `&`, quote it in the shell, for example:
 

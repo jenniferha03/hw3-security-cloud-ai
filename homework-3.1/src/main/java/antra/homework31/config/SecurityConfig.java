@@ -1,5 +1,6 @@
-package antra.homework31.security;
+package antra.homework31.config;
 
+import antra.homework31.security.JwtAuthenticationFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
