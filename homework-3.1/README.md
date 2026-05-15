@@ -1,17 +1,19 @@
 # Homework 3.1 — Spring Security & JWT
 
-Spring Boot application (Homework 1 movie API) extended with **Spring Security**, **JWT authentication**, **H2** persistence for users, and **`@PreAuthorize`** on protected endpoints. Login is exposed only as **`POST /auth/login`** (no Spring Security form login).
+Spring Boot application (Homework 1 movie API) extended with **Spring Security**, **JWT authentication**, **H2** persistence for users, and `**@PreAuthorize`** on protected endpoints. Login is exposed only as `**POST /auth/login**` (no Spring Security form login).
 
 ## Requirements implemented
 
-| Item                                 | Implementation                                                                 |
-| ------------------------------------ | ------------------------------------------------------------------------------ |
-| Spring Security                      | `spring-boot-starter-security`, dual `SecurityFilterChain` in **`config.SecurityConfig`** (H2 console vs API) |
-| Users in H2                          | JPA entity `AppUser`, table `users`, BCrypt passwords                          |
-| `UserDetails` / `UserDetailsService` | `AppUserDetails`, `AppUserDetailsService`                                      |
-| JWT filter                           | `JwtAuthenticationFilter` validates Bearer tokens and sets `SecurityContext`   |
-| `@PreAuthorize`                      | `MovieController` — `hasRole('USER')`                                          |
-| Custom login                         | `AuthController` — `POST /auth/login` (JSON body)                              |
+
+| Item                                 | Implementation                                                                                                |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Spring Security                      | `spring-boot-starter-security`, dual `SecurityFilterChain` in `**config.SecurityConfig**` (H2 console vs API) |
+| Users in H2                          | JPA entity `AppUser`, table `users`, BCrypt passwords                                                         |
+| `UserDetails` / `UserDetailsService` | `AppUserDetails`, `AppUserDetailsService`                                                                     |
+| JWT filter                           | `JwtAuthenticationFilter` validates Bearer tokens and sets `SecurityContext`                                  |
+| `@PreAuthorize`                      | `MovieController` — `hasRole('USER')`                                                                         |
+| Custom login                         | `AuthController` — `POST /auth/login` (JSON body)                                                             |
+
 
 ## Prerequisites
 
@@ -27,9 +29,10 @@ cd homework-3.1
 ./mvnw spring-boot:run
 ```
 
-Default URL: **http://localhost:8080** (change with `server.port` in `application.properties` if needed).
+Default URL: **[http://localhost:8080](http://localhost:8080)** (change with `server.port` in `application.properties` if needed).
 
 ## Default user (seeded on startup)
+
 
 | Field    | Value      |
 | -------- | ---------- |
@@ -37,15 +40,18 @@ Default URL: **http://localhost:8080** (change with `server.port` in `applicatio
 | Password | `password` |
 | Role     | `USER`     |
 
+
 ## Endpoints summary
 
 Base URL: `http://localhost:8080` (unless you change `server.port`).
+
 
 | Method | Path                           | Auth                     | Description                                                                                             |
 | ------ | ------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------- |
 | `POST` | `/auth/login`                  | None                     | JSON body: `username`, `password`. Returns `{ "token": "<JWT>" }` (or error body / **401** on failure). |
 | `GET`  | `/api/v1/movies`               | Bearer JWT (`ROLE_USER`) | **No query params:** list all movies. **With `Title`:** search — optional `Year`, `page` (default `1`). |
-| `GET`  | `/h2-console`, `/h2-console/*` | None (dev only)          | H2 web console UI.                                                                                      |
+| `GET`  | `/h2-console`, `/h2-console/`* | None (dev only)          | H2 web console UI.                                                                                      |
+
 
 All `/api/v1/movies` routes are protected by `@PreAuthorize("hasRole('USER')")` in addition to a valid JWT for that user.
 
@@ -95,10 +101,10 @@ Requests **without** a valid JWT receive **401 Unauthorized**.
 
 Enabled when `spring.h2.console.enabled=true`.
 
-1. Open **http://localhost:8080/h2-console** (trailing slash is fine).
+1. Open **[http://localhost:8080/h2-console](http://localhost:8080/h2-console)** (trailing slash is fine).
 2. **JDBC URL:** `jdbc:h2:mem:moviesdb`
 3. **User name:** `sa`
-4. **Password:** _(leave empty)_
+4. **Password:** *(leave empty)*
 
 Example query: `SELECT * FROM USERS;`
 
@@ -106,12 +112,14 @@ Example query: `SELECT * FROM USERS;`
 
 ## Configuration (`application.properties`)
 
+
 | Property              | Purpose                                                 |
 | --------------------- | ------------------------------------------------------- |
-| `spring.datasource.*` | H2 in-memory datasource                                 |
+| `spring.datasource.`* | H2 in-memory datasource                                 |
 | `spring.h2.console.*` | H2 console path and settings                            |
 | `jwt.secret`          | HS256 signing key — **must be at least 32 UTF-8 bytes** |
 | `jwt.expiration-ms`   | JWT lifetime (default 24 hours)                         |
+
 
 For production, replace `jwt.secret` with a strong random value and **disable** the H2 console.
 
@@ -130,7 +138,7 @@ java -jar target/homework-3-1-1.0.0.jar
 
 ## Project layout
 
-Base package: **`antra.homework31`**.
+Base package: `**antra.homework31**`.
 
 ```
 homework-3.1/
@@ -171,6 +179,7 @@ homework-3.1/
 
 ### Common HTTP statuses (endpoints)
 
+
 | Code              | Typical cause                                                         |
 | ----------------- | --------------------------------------------------------------------- |
 | **200**           | Success.                                                              |
@@ -180,8 +189,10 @@ homework-3.1/
 | **404** / **405** | Wrong path or HTTP method.                                            |
 | **500**           | Server error (e.g. upstream movie API failure).                       |
 
+
 ## Tech stack
 
 - Spring Boot **3.4.6** (release train; project artifact version **1.0.0**, not `SNAPSHOT`)
 - Spring Security **6** / JWT (jjwt **0.12.x**)
 - Spring Data JPA + **H2**
+
